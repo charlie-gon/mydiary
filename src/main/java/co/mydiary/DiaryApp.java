@@ -28,7 +28,6 @@ public class DiaryApp {
 
 	}
 
-	
 	// 메뉴 출력
 	public void menuPrint() {
 		Menu[] arr = Menu.values();
@@ -59,7 +58,7 @@ public class DiaryApp {
 		switch (menu) {
 		case 종료: end();	break;
 		case 추가: insert();	break;
-		case 수정: insert();	break;
+		case 수정: update();	break;
 		case 삭제: delete();	break;
 		case 전체조회:   selectAll(); break;
 		case 날짜로검색: selectDate(); break;
@@ -95,21 +94,34 @@ public class DiaryApp {
 	// 수정
 	public void update() {
 		//to do : 수정
+		String wdate = "";
+		String contents = "";
 		//날짜 입력
-		
+		System.out.println("날짜:");
+		wdate = StdInputUtil.readDate();
 		//내용 입력
+		System.out.println("내용:");
+		contents = StdInputUtil.readMultiLine();
 		
+		//vo 담기
+		DiaryVO vo = new DiaryVO();
+		vo.setWdate(wdate);
+		vo.setContents(contents);
+		dao.update(vo);
 		//리스트에서 수정
-		System.out.println("수정");
+		System.out.println(vo);
 	}
 
 	// 삭제
 	public void delete() {
 		//to do : 삭제
+		String wdate = "";
 		//날짜 입력
-		
+		System.out.println("날짜:");
+		wdate = StdInputUtil.readDate();
 		//리스트에서 삭제
 		
+		dao.delete(wdate);
 		System.out.println("삭제");
 	}
 
