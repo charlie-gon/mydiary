@@ -113,13 +113,14 @@ public class DiaryListDAO implements DAO {
 		for(int idx = 0; idx < size; idx++) {
 			if(list.get(idx).getWdate().equals(date)) {
 				list.remove(idx);
+				result = 1;
 				System.out.println(idx + "번이 삭제되었습니다.");
 			} /*
 				 * else if(!list.get(idx).getWdate().equals(date)) {
 				 * System.out.println("날짜를 잘못 입력하셨습니다."); return result; }
 				 */
 		} 
-		return 1;
+		return result;
 	}
 
 	//날짜로 검색
@@ -141,14 +142,14 @@ public class DiaryListDAO implements DAO {
 		//to do : 내용으로 검색
 		int size = list.size();
 		for(int idx = 0; idx < size; idx++) {
-			if(list.get(idx).getContents().equals(content)) {
-				list.get(idx);
+			if(list.get(idx).getContents().contains(content)) {
+				searchlist.add(list.get(idx));
+				
 				System.out.println(idx + "번이 검색되었습니다.");
 				break;
 			}
 		}
-		
-		return list;
+		return searchlist;
 	}
 
 	public List<DiaryVO> selectAll() {

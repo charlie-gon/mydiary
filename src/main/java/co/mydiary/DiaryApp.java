@@ -10,8 +10,8 @@ public class DiaryApp {
 	public void start() {
 		
 		//저장된 내용 읽어서 리스트에 담기
-		dao = new DiaryListDAO();	
-		
+		//dao = new DiaryListDAO();	
+		dao = new DiaryOracleDAO();
 		int menunum;
 		
 		do {
@@ -136,7 +136,8 @@ public class DiaryApp {
 	// 내용검색
 	public void selectContent() {
 		System.out.println("내용검색");
-		String contents = StdInputUtil.readMultiLine();
+		String contents = StdInputUtil.readLine();
+		System.out.println(contents);
 		List<DiaryVO> list = dao.selectContent(contents);
 		list.stream().forEach(this::print);
 	}
