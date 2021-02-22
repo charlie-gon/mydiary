@@ -136,7 +136,7 @@ public class DiaryApp {
 	// 내용검색
 	public void selectContent() {
 		System.out.println("내용검색");
-		String contents = StdInputUtil.readLine();
+		String contents = StdInputUtil.readLine(); // Oracle DB 연결 시 readLine으로 설정해야 제대로 작동된다.(readMultiline은 조회 안됨)
 		System.out.println(contents);
 		List<DiaryVO> list = dao.selectContent(contents);
 		list.stream().forEach(this::print);

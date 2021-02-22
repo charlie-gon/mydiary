@@ -36,20 +36,58 @@ public class DiaryOracleDAO implements DAO { // 테이블과 연동하여 다이
 
 	@Override
 	public void update(DiaryVO vo) {
-		// TODO Auto-generated method stub
-		
+		try {
+			conn = JdbcUtil.connect();
+			String sql = "update diary set contents = ? where wdate = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getContents());
+			pstmt.setString(2, vo.getWdate());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.disconnect(conn);
+		}
 	}
 
 	@Override
 	public int delete(String date) {
-		// TODO Auto-generated method stub
+		
+		try {
+			conn = JdbcUtil.connect();
+			String sql = "delete from diary where wdate = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, date);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.disconnect(conn);
+		}
 		return 0;
 	}
 
 	@Override
 	public DiaryVO selectDate(String date) {
-		// TODO Auto-generated method stub
-		return null;
+		DiaryVO vo = null;
+		try {
+			conn = JdbcUtil.connect();
+			String sql = "select wdate, contents from diary where wdate = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, date);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo = new DiaryVO();
+				vo.setWdate(rs.getString("wdate"));
+				vo.setContents(rs.getString("contents"));
+				System.out.println("날짜검색 Success");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.disconnect(conn);
+		}
+		return vo;
 	}
 
 	@Override
